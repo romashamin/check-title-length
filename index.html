@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>Check Title Length</title>
+
+    <style type="text/css">
+      html,
+      body,
+      p {
+        margin:  0;
+        padding: 0;
+        font-family: "-apple-system", "Helvetica Neue";
+        font-size:   17.031185031185032px;
+      }
+      html,
+      body{
+        height: 100%;
+      }
+      * {
+        box-sizing: border-box;
+      }
+
+      .page-container {
+        height: 100%;
+        display: flex;
+      }
+
+      .left-part {
+        display: flex;
+        align-items: center;
+        width:   40%;
+        height: 100%;
+        padding: 2%;
+        background-color: #F7F6F6;
+      }
+      .right-part {
+        display: flex;
+        align-items: center;
+        width:   60%;
+        height: 100%;
+        padding: 0;
+        background-color: #FFF;
+      }
+
+      .images-container {
+        margin: 0 auto;
+      }
+      .inputs-container {
+        width: 80%;
+        margin: 0 auto;
+      }
+      .input-label {
+        display: inline-block;
+        width: 15%;
+        margin-right: 3%;
+        color: #8e8e8e;
+        text-align: right;
+      }
+      .input {
+        width: 82%;
+        font-size: 17.031185031185032px;
+        padding: 6px 0 6px 6px;
+        border: none;
+        background-image: none;
+        background-color: transparent;
+        -webkit-box-shadow: none;
+        -moz-box-shadow: none;
+        box-shadow: none;
+        border-radius: 6px;
+      }
+      .input:focus {
+        outline: none;
+        background-color: rgba(0, 0, 0, 0.05);
+      }
+
+      .bg-image {
+        margin: 0 auto;
+      }
+      .image-webpush-chrome {
+        width: 380px;
+        height: 99px;
+        background-image: url("images/webpush-chrome@2x.png");
+        background-size: 380px 99px;
+        background-repeat: no-repeat;
+      }
+      .image-apple-mail-iOS {
+        width:  375px;
+        height:  99px;
+        background-image: url("images/apple-mail-iOS@3x.png");
+        background-size: 375px 99px;
+        background-repeat: no-repeat;
+      }
+
+      .image-webpush-chrome-title {
+        position: relative;
+        width: 160px;
+        font-size: 12px;
+        font-weight: 500;
+        top:  24px;
+        left: 69px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        color: #4c4c4c;
+      }
+      .image-webpush-chrome-body {
+        position: relative;
+        width: 160px;
+        font-size: 11px;
+        top:  43px;
+        left: 69px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        color: #4c4c4c;
+      }
+      .image-apple-mail-iOS-title {
+        position: relative;
+        width: 338px;
+        top:  30px;
+        left: 26px;
+        font-size: 15px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .image-apple-mail-iOS-body {
+        position: relative;
+        width: 355px;
+        top:  32.5px;
+        left: 26px;
+        color: #8e8e8e;
+        font-size: 15px;
+        line-height: 19px;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      @media only screen and (min-device-width: 320px) and (max-device-width: 620px),
+             only screen and (min-width: 320px) and (max-width: 620px) {
+
+        .page-container {
+          display: block;
+          /*height: auto;*/
+        }
+
+        .left-part {
+          display: block;
+          position: fixed;
+          bottom: 0;
+          width:  100%;
+          height: auto;
+          padding: 24px 15px 48px;
+          border-radius: 15px 15px 0 0;
+          z-index: 1;
+          background-color: #F7F6F6;
+        }
+        .right-part {
+          width: 100%;
+          height: 100%;
+          overflow-y: scroll;
+          padding-bottom: 20%;
+          background-color: #FFF;
+        }
+
+        .images-container {
+          width: auto;
+        }
+        .inputs-container {
+          width: auto;
+        }
+
+      }
+
+    </style>
+  </head>
+  <body>
+    <div class="page-container">
+      <div class="left-part">
+        <div class="inputs-container">
+          <div class="input-container"><label class="input-label" for="input-title">Title</label><input id="title" type="text" class="input input-title" name="input-title" placeholder="Type here..." value=""></div>
+          <div class="input-container"><label class="input-label" for="input-body">Body</label><input id="body" type="text" class="input input-body" name="input-body" placeholder="Type here..." value=""></div>
+        </div>
+      </div>
+      <div class="right-part">
+        <div class="images-container">
+          <div class="bg-image image-webpush-chrome"><div class="image-webpush-chrome-title"></div><div class="image-webpush-chrome-body"></div></div>
+          <div class="bg-image image-apple-mail-iOS"><div class="image-apple-mail-iOS-title"></div><div class="image-apple-mail-iOS-body"></div></div>
+        </div>
+      </div>
+    </div>
+  </body>
+
+<script type="text/javascript">
+
+  const sources = {
+    titleNode : document.querySelector('.input-title'),
+    bodyNode  : document.querySelector('.input-body')
+  };
+
+  const defaultData = {
+    title : '50% кэшбэка — персональное предложение!',
+    body  : 'До 13 ноября активируйте предложение и сделайте покупку'
+  };
+
+  var appData = {
+    title : '',
+    body  : ''
+  };
+
+  const slots = [
+    { title : '.image-webpush-chrome-title', body : '.image-webpush-chrome-body'},
+    { title : '.image-apple-mail-iOS-title', body : '.image-apple-mail-iOS-body'}
+  ];
+
+  var nodes = {
+    titles : [],
+    bodies : []
+  };
+
+
+  /**
+   * Local storage module.
+   */
+
+  var LS = (function() {
+
+    const localStorageProperty = 'check-title-length-data';
+
+    function get() {
+      return JSON.parse(localStorage.getItem(localStorageProperty));
+    }
+
+    function save(dataObject) {
+      localStorage.setItem(localStorageProperty, JSON.stringify(dataObject));
+    }
+
+    return {
+      get  : get,
+      save : save
+    };
+  })();
+
+
+  /**
+   * App module.
+   */
+
+  const app = (function() {
+
+    function render(appData) {
+      nodes.titles.forEach(titleNode => titleNode.innerHTML = appData.title);
+      nodes.bodies.forEach(bodyNode => bodyNode.innerHTML = appData.body);
+    }
+
+    function update(event) {
+
+      if (event.target.id === 'title') {
+        appData.title = event.target.value;
+      }
+
+      if (event.target.id === 'body') {
+        appData.body = event.target.value;
+      }
+
+      render(appData);
+
+      LS.save(appData);
+    }
+
+    function init(slots) {
+
+      const data = LS.get();
+
+      if (data) {
+        sources.titleNode.value = data.title;
+        sources.bodyNode.value  = data.body;
+      } else {
+        sources.titleNode.value = defaultData.title;
+        sources.bodyNode.value  = defaultData.body;
+      }
+
+      for (var i = 0; i < slots.length; i++) {
+        var slot = slots[i];
+
+        nodes.titles.push(document.querySelector(slot.title));
+        nodes.bodies.push(document.querySelector(slot.body));
+      }
+
+      sources.titleNode.addEventListener('input', update);
+      sources.bodyNode.addEventListener('input', update);
+
+      appData.title = sources.titleNode.value;
+      appData.body  = sources.bodyNode.value;
+
+      render(appData);
+    }
+
+    return {
+      init : init
+    }
+
+  })();
+
+
+  window.onload = function() { app.init(slots); }
+
+</script>
+</html>
